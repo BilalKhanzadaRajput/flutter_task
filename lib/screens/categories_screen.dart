@@ -4,20 +4,14 @@ import 'package:flutter_task/helper/constants/colors_resource.dart';
 import 'package:flutter_task/helper/constants/dimensions_resource.dart';
 import 'package:flutter_task/helper/constants/string_resources.dart';
 import 'package:flutter_task/helper/widgets/custom_appbar.dart';
+import 'package:flutter_task/routes/routes.dart';
 import 'package:get/get.dart';
 
 import '../helper/widgets/custom_bottom_navigation_bar.dart';
 import 'product_details_screen.dart';
 
-class CategoriesScreen extends StatefulWidget {
+class CategoriesScreen extends GetView<CategoriesController> {
   const CategoriesScreen({super.key});
-
-  @override
-  State<CategoriesScreen> createState() => _CategoriesScreenState();
-}
-
-class _CategoriesScreenState extends State<CategoriesScreen> {
-  final CategoriesController controller = Get.put(CategoriesController());
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +38,9 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
           Expanded(
             child: Obx(() {
               if (controller.isLoading.value) {
-                return Center(child: CircularProgressIndicator(color: ColorResources.BLACK_COLOR));
+                return Center(
+                    child: CircularProgressIndicator(
+                        color: ColorResources.BLACK_COLOR));
               }
 
               return GridView.builder(
@@ -53,7 +49,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                   crossAxisCount: 2,
                   crossAxisSpacing: DimensionsResource.GRID_SPACING,
                   mainAxisSpacing: DimensionsResource.GRID_SPACING,
-                  childAspectRatio: 1,
+                  childAspectRatio: 0.8, // Adjust aspect ratio to prevent overflow
                 ),
                 itemCount: controller.filteredCategories.length,
                 itemBuilder: (context, index) {
@@ -61,7 +57,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
 
                   return GestureDetector(
                     onTap: () {
-                      Get.to(() => ProductDetailsScreen(categoryModel: category));
+                      Get.toNamed(AppRoutes.productDetails, arguments: category);
                     },
                     child: Card(
                       shape: RoundedRectangleBorder(
@@ -69,19 +65,39 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                       ),
                       elevation: 4,
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min, // Prevents overflow
                         children: [
-                          // Category Image
+                          // Image
+                          Container(
+                            width: double.infinity,
+                            height: DimensionsResource.PRODUCT_IMAGE_HEIGHT,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(DimensionsResource.BORDER_RADIUS),
+                              ),
+                              image: DecorationImage(
+                                image: AssetImage("assets/place_holder.png"), // Placeholder Image
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
 
                           SizedBox(height: 10),
 
                           // Category Name
-                          Text(
-                            category.name,
-                            textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                              fontWeight: FontWeight.bold,
-                              color: ColorResources.BLACK_COLOR,
+                          Expanded( // Ensures text fits properly
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: DimensionsResource.PADDING_SMALL),
+                              child: Text(
+                                category.name,
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: ColorResources.BLACK_COLOR,
+                                ),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis, // Prevents overflow text
+                              ),
                             ),
                           ),
                         ],
@@ -90,7 +106,6 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                   );
                 },
               );
-
             }),
           ),
         ],

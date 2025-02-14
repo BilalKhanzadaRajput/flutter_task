@@ -9,16 +9,8 @@ import '../helper/constants/colors_resource.dart';
 import '../helper/constants/image_resources.dart';
 import '../model/categories_details_model.dart';
 
-class SplashScreen extends StatefulWidget {
-
+class SplashScreen extends GetView<SplashController> {
   SplashScreen({super.key});
-
-  @override
-  State<SplashScreen> createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen> {
-  final SplashController controller = Get.put(SplashController());
 
   @override
   Widget build(BuildContext context) {
@@ -53,12 +45,12 @@ class _SplashScreenState extends State<SplashScreen> {
                   const SizedBox(height: DimensionsResource.PADDING_SIZE_LARGE),
                   Center(
                     child: Text(
-                      StringResources.MY_STORE,
+                    controller.title,
                       style:
-                      Theme.of(context).textTheme.headlineLarge?.copyWith(
-                      fontSize: DimensionsResource.FONT_SIZE_36,
-                      color: ColorResources.BLACK_COLOR,
-                    ),
+                          Theme.of(context).textTheme.headlineLarge?.copyWith(
+                                fontSize: DimensionsResource.FONT_SIZE_36,
+                                color: ColorResources.BLACK_COLOR,
+                              ),
                     ),
                   ),
                   const Spacer(),
@@ -69,22 +61,28 @@ class _SplashScreenState extends State<SplashScreen> {
                       Center(
                         child: Text(
                           StringResources.WELCOME_TEXT,
-                          style:
-                          Theme.of(context).textTheme.headlineLarge?.copyWith(
-                            fontSize: DimensionsResource.FONT_SIZE_LARGE.sp,
-                            color: ColorResources.PRIMARY_COLOR,
-                          ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineLarge
+                              ?.copyWith(
+                                fontSize: DimensionsResource.FONT_SIZE_LARGE.sp,
+                                color: ColorResources.PRIMARY_COLOR,
+                              ),
                         ),
                       ),
-                      const SizedBox(height: DimensionsResource.PADDING_SIZE_DEFAULT),
+                      const SizedBox(
+                          height: DimensionsResource.PADDING_SIZE_DEFAULT),
                       Center(
                         child: Text(
                           StringResources.SPLASH_DESCRIPTION,
-                          style:
-                          Theme.of(context).textTheme.headlineLarge?.copyWith(
-                            fontSize: DimensionsResource.FONT_SIZE_MEDIUM.sp,
-                            color: ColorResources.PRIMARY_COLOR,
-                          ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineLarge
+                              ?.copyWith(
+                                fontSize:
+                                    DimensionsResource.FONT_SIZE_MEDIUM.sp,
+                                color: ColorResources.PRIMARY_COLOR,
+                              ),
                         ),
                       ),
                       SizedBox(height: DimensionsResource.PADDING_SIZE_DEFAULT),

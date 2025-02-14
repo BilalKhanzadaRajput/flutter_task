@@ -1,7 +1,8 @@
 class CategoryModel {
-  final String slug;
-  final String name;
-  final String url;
+  String slug = '';
+  String name = '';
+
+  String url = '';
 
   CategoryModel({required this.slug, required this.name, required this.url});
 
@@ -12,4 +13,6 @@ class CategoryModel {
       url: json["url"],
     );
   }
+
+  CategoryModel.empty();
 }

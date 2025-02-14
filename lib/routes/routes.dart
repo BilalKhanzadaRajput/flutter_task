@@ -1,3 +1,4 @@
+import 'package:flutter_task/routes/screen_binding.dart';
 import 'package:get/get.dart';
 import 'package:flutter_task/screens/splash_screen.dart';
 import 'package:flutter_task/screens/product_screen.dart';
@@ -15,24 +16,24 @@ class AppRoutes {
   static const String favoritesScreen = '/favoritesScreen';
   static const String userScreen = '/userScreen';
 
-
-
   static List<GetPage> pages = [
-    GetPage(name: splash, page: () => SplashScreen()),
-    GetPage(name: product, page: () => ProductScreen()),
-    GetPage(name: categories, page: () => CategoriesScreen()),
-    GetPage(name: favoritesScreen, page: () => FavoritesScreen()),
-    GetPage(name: userScreen , page: () => UserScreen() ),
-
-
-
-
-    // Pass data using arguments
     GetPage(
-      name: productDetails,
-      page: () => ProductDetailsScreen(
-        categoryModel: Get.arguments as CategoryModel, // Fix here
-      ),
-    ),
+        name: splash, page: () => SplashScreen(), binding: ScreenBindings()),
+    GetPage(
+        name: product, page: () => ProductScreen(), binding: ScreenBindings()),
+    GetPage(
+        name: categories,
+        page: () => CategoriesScreen(),
+        binding: ScreenBindings()),
+    GetPage(
+        name: favoritesScreen,
+        page: () => FavoritesScreen(),
+        binding: ScreenBindings()),
+    GetPage(
+        name: userScreen, page: () => UserScreen(), binding: ScreenBindings()),
+    GetPage(
+        name: productDetails,
+        page: () => ProductDetailsScreen(),
+        binding: ScreenBindings()),
   ];
 }

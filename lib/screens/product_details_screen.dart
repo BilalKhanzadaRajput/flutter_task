@@ -10,23 +10,12 @@ import '../helper/widgets/custom_bottom_navigation_bar.dart';
 import '../model/categories_model.dart';
 import '../model/categories_details_model.dart';
 
-class ProductDetailsScreen extends StatefulWidget {
-  final CategoryModel categoryModel;
-
-  const ProductDetailsScreen({super.key, required this.categoryModel});
-
+class ProductDetailsScreen extends GetView<ProductDetailsScreenController> {
+  const ProductDetailsScreen({
+    super.key,
+  });
   @override
-  State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
-}
-
-class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
-  final controller = Get.put(ProductDetailsScreenController());
-
-  @override
-  void initState() {
-    super.initState();
-    controller.fetchCategories(widget.categoryModel.url);
-  }
+  final String tag = "productDetailsScreenController";
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +25,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         child: Obx(() {
           if (controller.isLoading.value) {
             return const Center(
-              child: CircularProgressIndicator(color: ColorResources.BLACK_COLOR),
+              child:
+                  CircularProgressIndicator(color: ColorResources.BLACK_COLOR),
             );
           }
 
@@ -51,29 +41,30 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     Column(
                       children: [
                         Image.network(product.thumbnail),
-
                         SizedBox(height: DimensionsResource.SPACING_SMALL),
-
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            _buildDetailRow(StringResources.NAME, product.title),
+                            _buildDetailRow(
+                                StringResources.NAME, product.title),
                             IconButton(
                               icon: Obx(() => Icon(
-                                controller.isFavorite(product) ? Icons.favorite : Icons.favorite_border,
-                                color: ColorResources.FAVORITE_COLOR,
-                              )),
+                                    controller.isFavorite(product)
+                                        ? Icons.favorite
+                                        : Icons.favorite_border,
+                                    color: ColorResources.FAVORITE_COLOR,
+                                  )),
                               onPressed: () {
                                 controller.toggleFavorite(product);
                               },
                             ),
                           ],
                         ),
-
-                        _buildDetailRow(StringResources.PRICE, product.price.toString()),
-                        _buildDetailRow(StringResources.CATEGORY, product.category),
+                        _buildDetailRow(
+                            StringResources.PRICE, product.price.toString()),
+                        _buildDetailRow(
+                            StringResources.CATEGORY, product.category),
                         _buildDetailRow(StringResources.BRAND, product.brand),
-
                         Row(
                           children: [
                             Text(
@@ -87,20 +78,19 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             Row(
                               children: product.reviews
                                   .map((i) => Icon(
-                                i.rating < 4 ? Icons.star : Icons.star_half,
-                                color: ColorResources.RATING_COLOR,
-                                size: DimensionsResource.ICON_SIZE,
-                              ))
+                                        i.rating < 4
+                                            ? Icons.star
+                                            : Icons.star_half,
+                                        color: ColorResources.RATING_COLOR,
+                                        size: DimensionsResource.ICON_SIZE,
+                                      ))
                                   .toList(),
                             ),
                             Text(product.rating.toString()),
                           ],
                         ),
-
                         _buildDetailRow(StringResources.STOCK, '46'),
-
                         SizedBox(height: DimensionsResource.SPACING_MEDIUM),
-
                         Text(
                           StringResources.DESCRIPTION,
                           style: TextStyle(
@@ -108,17 +98,14 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             color: ColorResources.TEXT_SECONDARY,
                           ),
                         ),
-
                         SizedBox(height: DimensionsResource.SPACING_SMALL),
-
                         Text(
                           product.description,
-                          style: TextStyle(color: ColorResources.BLACK_COLOR,
+                          style: TextStyle(
+                            color: ColorResources.BLACK_COLOR,
+                          ),
                         ),
-                        ),
-
                         SizedBox(height: DimensionsResource.SPACING_MEDIUM),
-
                         Text(
                           StringResources.PRODUCT_GALLERY,
                           style: TextStyle(
@@ -126,13 +113,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             color: ColorResources.TEXT_SECONDARY,
                           ),
                         ),
-
                         SizedBox(height: DimensionsResource.SPACING_SMALL),
-
                         GridView.builder(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
                             crossAxisSpacing: DimensionsResource.GRID_SPACING,
                             mainAxisSpacing: DimensionsResource.GRID_SPACING,
@@ -141,11 +127,13 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           itemBuilder: (context, index) {
                             return Container(
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(DimensionsResource.BORDER_RADIUS),
+                                borderRadius: BorderRadius.circular(
+                                    DimensionsResource.BORDER_RADIUS),
                                 color: ColorResources.PRIMARY_COLOR,
                               ),
                               child: ClipRRect(
-                                borderRadius: BorderRadius.circular(DimensionsResource.BORDER_RADIUS),
+                                borderRadius: BorderRadius.circular(
+                                    DimensionsResource.BORDER_RADIUS),
                                 child: Image.network(
                                   product.images[index],
                                   fit: BoxFit.cover,
@@ -154,7 +142,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             );
                           },
                         ),
-                        ],
+                      ],
                     ),
                 ],
               ),
@@ -168,7 +156,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
   Widget _buildDetailRow(String label, String value) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: DimensionsResource.SPACING_EXTRA_SMALL),
+      padding: EdgeInsets.symmetric(
+          vertical: DimensionsResource.SPACING_EXTRA_SMALL),
       child: Row(
         children: [
           Text(

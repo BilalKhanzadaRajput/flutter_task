@@ -7,16 +7,8 @@ import '../helper/constants/dimensions_resource.dart';
 import '../helper/constants/string_resources.dart';
 import '../helper/widgets/custom_bottom_navigation_bar.dart';
 
-
-class UserScreen extends StatefulWidget {
+class UserScreen extends GetView<UserController> {
   const UserScreen({super.key});
-
-  @override
-  State<UserScreen> createState() => _UserScreenState();
-}
-
-class _UserScreenState extends State<UserScreen> {
-  final UserController controller = Get.put(UserController());
 
   @override
   Widget build(BuildContext context) {
@@ -46,35 +38,42 @@ class _UserScreenState extends State<UserScreen> {
               padding: const EdgeInsets.all(DimensionsResource.PADDING_MEDIUM),
               decoration: BoxDecoration(
                 color: ColorResources.BLACK_COLOR,
-                borderRadius: BorderRadius.circular(DimensionsResource.BORDER_RADIUS),
+                borderRadius:
+                    BorderRadius.circular(DimensionsResource.BORDER_RADIUS),
               ),
               child: Row(
                 children: [
                   CircleAvatar(
                     radius: DimensionsResource.IMAGE_SIZE_SMALL / 2,
                     backgroundColor: Colors.white,
-                    child: Icon(Icons.person, size: DimensionsResource.ICON_SIZE_LARGE, color: Colors.black),
+                    child: Icon(Icons.person,
+                        size: DimensionsResource.ICON_SIZE_LARGE,
+                        color: Colors.black),
                   ),
                   const SizedBox(width: DimensionsResource.SPACING_SMALL),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Obx(() => Text(
-                        controller.userName.value,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: DimensionsResource.FONT_SIZE_MEDIUM,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )),
+                            controller.userName.value,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: DimensionsResource.FONT_SIZE_MEDIUM,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )),
                       Obx(() => Text(
-                        controller.email.value,
-                        style: TextStyle(color: Colors.white, fontSize: DimensionsResource.FONT_SIZE_SMALL),
-                      )),
+                            controller.email.value,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: DimensionsResource.FONT_SIZE_SMALL),
+                          )),
                       Obx(() => Text(
-                        controller.phoneNumber.value,
-                        style: TextStyle(color: Colors.white, fontSize: DimensionsResource.FONT_SIZE_SMALL),
-                      )),
+                            controller.phoneNumber.value,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: DimensionsResource.FONT_SIZE_SMALL),
+                          )),
                     ],
                   ),
                 ],
@@ -84,18 +83,27 @@ class _UserScreenState extends State<UserScreen> {
 
             // Account Options List
             ListTile(
-              leading: Icon(Icons.settings, size: DimensionsResource.ICON_SIZE_MEDIUM),
-              title: Text(StringResources.ACCOUNT_SETTINGS, style: TextStyle(fontSize: DimensionsResource.FONT_SIZE_MEDIUM)),
+              leading: Icon(Icons.settings,
+                  size: DimensionsResource.ICON_SIZE_MEDIUM),
+              title: Text(StringResources.ACCOUNT_SETTINGS,
+                  style:
+                      TextStyle(fontSize: DimensionsResource.FONT_SIZE_MEDIUM)),
               onTap: () {}, // Add functionality
             ),
             ListTile(
-              leading: Icon(Icons.credit_card, size: DimensionsResource.ICON_SIZE_MEDIUM),
-              title: Text(StringResources.PAYMENT_METHODS, style: TextStyle(fontSize: DimensionsResource.FONT_SIZE_MEDIUM)),
+              leading: Icon(Icons.credit_card,
+                  size: DimensionsResource.ICON_SIZE_MEDIUM),
+              title: Text(StringResources.PAYMENT_METHODS,
+                  style:
+                      TextStyle(fontSize: DimensionsResource.FONT_SIZE_MEDIUM)),
               onTap: () {}, // Add functionality
             ),
             ListTile(
-              leading: Icon(Icons.support, size: DimensionsResource.ICON_SIZE_MEDIUM),
-              title: Text(StringResources.SUPPORT, style: TextStyle(fontSize: DimensionsResource.FONT_SIZE_MEDIUM)),
+              leading: Icon(Icons.support,
+                  size: DimensionsResource.ICON_SIZE_MEDIUM),
+              title: Text(StringResources.SUPPORT,
+                  style:
+                      TextStyle(fontSize: DimensionsResource.FONT_SIZE_MEDIUM)),
               onTap: () {}, // Add functionality
             ),
           ],

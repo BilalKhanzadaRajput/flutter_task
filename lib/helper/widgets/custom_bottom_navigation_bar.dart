@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_task/routes/routes.dart';
 import 'package:get/get.dart';
 
 import '../../screens/categories_screen.dart';
@@ -22,16 +23,16 @@ class CustomBottomNavigationBar extends StatelessWidget {
       onTap: (index) {
         switch (index) {
           case 0:
-            Get.off(() => ProductScreen());
+            Get.offNamed(AppRoutes.product);
             break;
           case 1:
-            Get.to(() => CategoriesScreen());
+            Get.toNamed(AppRoutes.categories);
             break;
           case 2:
-            Get.to(() => FavoritesScreen());
+            Get.toNamed(AppRoutes.favoritesScreen);
             break;
           case 3:
-            Get.to(() => UserScreen());
+            Get.toNamed(AppRoutes.userScreen);
             break;
         }
       },

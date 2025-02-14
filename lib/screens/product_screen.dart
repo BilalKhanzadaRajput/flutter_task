@@ -7,15 +7,12 @@ import 'package:flutter_task/helper/widgets/custom_appbar.dart';
 import 'package:flutter_task/helper/widgets/custom_bottom_navigation_bar.dart';
 import 'package:get/get.dart';
 
-class ProductScreen extends StatefulWidget {
-  const ProductScreen({super.key});
+class ProductScreen extends GetView<ProductController>{
 
+   const ProductScreen({super.key});
   @override
-  State<ProductScreen> createState() => _ProductScreenState();
-}
+  final String tag = "productController";
 
-class _ProductScreenState extends State<ProductScreen> {
-  final ProductController controller = Get.put(ProductController());
 
   @override
   Widget build(BuildContext context) {

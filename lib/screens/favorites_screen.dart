@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../controllers/favorites_controller.dart';
 import '../controllers/product_screen_controller.dart';
 import '../helper/constants/colors_resource.dart';
 import '../helper/constants/dimensions_resource.dart';
@@ -7,17 +8,10 @@ import '../helper/constants/string_resources.dart';
 import '../helper/widgets/custom_appbar.dart';
 import '../helper/widgets/custom_bottom_navigation_bar.dart';
 
-class FavoritesScreen extends StatefulWidget {
+class FavoritesScreen extends GetView<FavoritesController> {
   const FavoritesScreen({super.key});
 
-  @override
-  State<FavoritesScreen> createState() => _FavoritesScreenState();
-}
 
-class _FavoritesScreenState extends State<FavoritesScreen> {
-  final ProductController controller = Get.find<ProductController>();
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(title: StringResources.FAVORITES),
@@ -28,7 +22,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
           Padding(
             padding: EdgeInsets.all(DimensionsResource.PADDING_MEDIUM),
             child: TextField(
-              onChanged: controller.updateFavoriteSearchQuery,
+              // onChanged: controller.updateFavoriteSearchQuery,
               decoration: InputDecoration(
                 hintText: StringResources.SEARCH_FAVORITES,
                 prefixIcon: Icon(Icons.search, color: ColorResources.ICON_COLOR),
@@ -45,7 +39,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
           // Favorites List
           Expanded(
             child: Obx(() {
-              if (controller.filteredFavorites.isEmpty) {
+              if (controller.favoriteProducts.isEmpty) {
                 return Center(
                   child: Text(
                     StringResources.NO_FAVORITES,
@@ -57,9 +51,9 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                 );
               }
               return ListView.builder(
-                itemCount: controller.filteredFavorites.length,
+                itemCount: controller.favoriteProducts.length,
                 itemBuilder: (context, index) {
-                  var product = controller.filteredFavorites[index];
+                  var product = controller.favoriteProducts[index];
 
                   return Padding(
                     padding: EdgeInsets.symmetric(

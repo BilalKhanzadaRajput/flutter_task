@@ -1,6 +1,12 @@
+import 'package:flutter_task/helper/constants/string_resources.dart';
 import 'package:get/get.dart';
 
 class SplashController extends GetxController {
+
+  String title = StringResources.MY_STORE;
+
+
+
   @override
   void onInit() {
     super.onInit();
